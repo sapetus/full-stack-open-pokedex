@@ -34,3 +34,4 @@ jobs:
           heroku_email: sampopitkanen@hotmail.com
           healthcheck: "https://young-temple-40146.herokuapp.com/health"
           checkstring: "ok"
+          rollbackonhealthcheckfailed: true
