@@ -22,19 +22,24 @@ const App = () => {
   }
 
   return (
-    <Router>
-      <Switch>
-        <Route exact path="/">
-          <PokemonList pokemonList={pokemonList} />
-        </Route>
-        <Route path="/pokemon/:name" render={(routeParams) => {
-          const pokemonId = pokemonList.find(({ name }) => name === routeParams.match.params.name).id
-          const previous = pokemonList.find(({ id }) => id === pokemonId - 1)
-          const next = pokemonList.find(({ id }) => id === pokemonId + 1)
-          return <PokemonPage pokemonList={pokemonList} previous={previous} next={next} />
-        }} />
-      </Switch>
-    </Router>
+    <div>
+      <h1 id="header">
+        Pokedex
+      </h1>
+      <Router>
+        <Switch>
+          <Route exact path="/">
+            <PokemonList pokemonList={pokemonList} />
+          </Route>
+          <Route path="/pokemon/:name" render={(routeParams) => {
+            const pokemonId = pokemonList.find(({ name }) => name === routeParams.match.params.name).id
+            const previous = pokemonList.find(({ id }) => id === pokemonId - 1)
+            const next = pokemonList.find(({ id }) => id === pokemonId + 1)
+            return <PokemonPage pokemonList={pokemonList} previous={previous} next={next} />
+          }} />
+        </Switch>
+      </Router>
+    </div>
   )
 }
 
