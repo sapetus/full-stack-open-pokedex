@@ -22,7 +22,7 @@ jobs:
         env: 
           COMMIT_MESSAGES: ${{ toJson(github.event.commits.*.message) }}
         run: echo "$COMMIT_MESSAGES"
-      - name: if
+      - name: test
         env:
-          IF: ${{ github.event.commits.*.message }}
-        run: echo "$IF"
+          TEST: ${{ github.event.commits.*.message }}
+        run: echo "$TEST"
