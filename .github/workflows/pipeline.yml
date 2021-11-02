@@ -51,12 +51,12 @@ jobs:
         if: ${{ success() }}
         with:
           status: custom
-          fields: author, took
+          fields: author, took, commit
           custom_payload: |
             {
               attachments: [{
                 color: 'good',
-                text: `Successfully deployed to ${https://young-temple-40146.herokuapp.com/} by ${process.env.AS_AUTHOR}, build took ${process.env.AS_TOOK}`
+                text: `Successfully deployed to https://young-temple-40146.herokuapp.com/ (${process.env.AS_COMMIT}) by ${process.env.AS_AUTHOR}, build took ${process.env.AS_TOOK}`,
               }]
             }
         env:
