@@ -41,8 +41,31 @@ jobs:
           rollbackonhealthcheckfailed: true
       - uses: actions/checkout@v2
       - name: Bump version and push tag
-        uses: anothrNick/github-tag-action@1.33.0
+        uses: anothrNick/github-tag-action@eca2b69f9e2c24be7decccd0f15fdb1ea5906598
         if: ${{ github.event_name == 'push' && !contains(join(toJson(github.event.commits.*.message), ','), '#skip') }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           DEFAULT_BUMP: patch
+      - name: Slack Message Success
+        uses: 8398a7/action-slack@v3
+        if: ${{ success() }}
+        with:
+          status: custom
+          fields: author, took
+          custom_payload: |
+            {
+              attachments: [{
+                color: 'good',
+                text: `Successfully deployed to ${https://young-temple-40146.herokuapp.com/} by ${process.env.AS_AUTHOR}, build took ${process.env.AS_TOOK}`
+              }]
+            }
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+      - name: Slack Message Failure
+        uses: 8398a7/action-slack@v3
+        if: ${{ failure() }}
+        with:
+          status: ${{ job.status }}
+          fields: repo, commit, message, took, author
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
