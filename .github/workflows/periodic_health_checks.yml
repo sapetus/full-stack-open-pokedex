@@ -2,7 +2,8 @@ name: Periodic Health Checks
 
 on:
   schedule:
-    - cron: '0/15 * * * *'
+    #this works, but has been disabled to save Herokus free hours
+    #- cron: '0/15 * * * *'
 
 jobs:
   periodic_health_checks:
