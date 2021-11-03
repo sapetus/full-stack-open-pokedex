@@ -1,0 +1,17 @@
+name: Periodic Health Checks
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  periodic_health_checks:
+    runs-on: ubuntu-18.04
+    steps:
+      - name: Check URL
+        uses: jtalk/url-health-check-action@v2
+        with:
+          url: https://young-temple-40146.herokuapp.com/health
+          max-attempts: 3
+          retry-delay: 5
